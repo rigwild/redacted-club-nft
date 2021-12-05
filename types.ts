@@ -1,4 +1,4 @@
-export type Anon = {
+export type Element = {
   id: number
   specialNote?: string
   imageUrl: string
@@ -20,29 +20,29 @@ export type Anon = {
 
 export type TraitRarity = { count: number; totalPercent: number; score: number }
 export type CategoryRarity = { [trait: string]: TraitRarity }
-export type AnonRarity = { score: number; rank: number }
-export type AnonsRarity = {
-  anons: { [id: number]: AnonRarity }
+export type ElementRarity = { score: number; rank: number }
+export type ElementsRarity = {
+  elements: { [id: number]: ElementRarity }
   categories: { [category: string]: CategoryRarity }
   traitsAmountRarity: { [traitsCount: string]: { count: number; percent: number } }
 }
 
-export type AnonTraitInfo = TraitRarity & { name: string }
-export type AnonWithRarity = Anon & {
-  rarity: AnonRarity & {
+export type ElementTraitInfo = TraitRarity & { name: string }
+export type ElementWithRarity = Element & {
+  rarity: ElementRarity & {
     traits: {
-      background: AnonTraitInfo
-      glow: AnonTraitInfo
-      special: AnonTraitInfo
-      ears: AnonTraitInfo
-      base: AnonTraitInfo
-      torso: AnonTraitInfo
-      eyes: AnonTraitInfo
-      mouth: AnonTraitInfo
-      mouth_acc: AnonTraitInfo
-      ear_acc: AnonTraitInfo
-      hat: AnonTraitInfo
-      bar: AnonTraitInfo
+      background: ElementTraitInfo
+      glow: ElementTraitInfo
+      special: ElementTraitInfo
+      ears: ElementTraitInfo
+      base: ElementTraitInfo
+      torso: ElementTraitInfo
+      eyes: ElementTraitInfo
+      mouth: ElementTraitInfo
+      mouth_acc: ElementTraitInfo
+      ear_acc: ElementTraitInfo
+      hat: ElementTraitInfo
+      bar: ElementTraitInfo
     }
   }
 }

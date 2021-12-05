@@ -1,13 +1,13 @@
 {
-  "name": "anons-secret-nft",
+  "name": "redacted-club-nft",
   "private": true,
   "type": "module",
   "version": "1.0.0",
   "scripts": {
     "extractTraits": "node dist/extractTraits.mjs",
-    "getScores": "node dist/getAnonsRarity.mjs",
-    "exportScores": "node dist/getAnonsRarity.mjs --quiet --out > _output_results.log",
-    "getScoresJson": "node dist/getAnonsRarity.mjs --quiet --json",
+    "getScores": "node dist/getElementsRarity.mjs",
+    "exportScores": "node dist/getElementsRarity.mjs --quiet --out > _output_results.log",
+    "getScoresJson": "node dist/getElementsRarity.mjs --quiet --json",
     "build": "tsc",
     "website:dev": "cd vite-project && pnpm dev",
     "website:build": "pnpm build && pnpm exportScores && cd vite-project && pnpm build"

@@ -1,32 +1,33 @@
-# Anons NFT Rarity Scores
+# Redacted Club NFT Rarity Scores
 
-This repository will list every rarity score for each Anons NFTs from https://www.anons.army/ on the [Secret Network](https://scrt.network/).
+**Note:** This is a direct fork of https://github.com/rigwild/anons-secret-nft
+
+This repository will list every rarity score for each Anons NFTs from https://redactedclub.com/ on the [Secret Network](https://scrt.network/).
 
 The rarity score is calculed following [these formulas (`Rarity Score: How is it Calculated?` section)](https://raritytools.medium.com/ranking-rarity-understanding-rarity-calculation-methods-86ceaeb9b98c#2942).
 
 A rarity score can be calculated in a lot of different ways with each their specifics strengths and flaws. **This is not an official ranking.**
 
-Any non-traits is treated like it was the trait "None". It counts in scores.
+Any non-traits is treated like it was the trait `none`. **It counts in scores**.
 
 ## Raw Rarity Scores
 
 - Human-readable version: [`_output_results.log`](./_output_results.log)
 - JSON:
-  - [`_output_anonsNullTraitsAsNone.json`](./_output_anonsNullTraitsAsNone.json): Anons with `null` traits set to `None`
+  - [`_output_elementsNullTraitsAsNone.json`](./_output_elementsNullTraitsAsNone.json): Elements with `null` traits set to `none`
   - [`_output_rarity.json`](./_output_rarity.json): Rarity scores
-  - [`_output_anonsWithRarity.json`](./_output_anonsWithRarity.json): Anons with its rarity
+  - [`_output_elementsWithRarity.json`](./_output_elementsWithRarity.json): Elements with its rarity
 
 ## Reproduce calculations
-
-The script will use local cached versions if available. To load everything from the https://www.anons.army/ API, remove every files named `_input_<name>.json`.
 
 ```sh
 pnpm install
 pnpm build
+pnpm extractTraits
 pnpm exportScores
 ```
 
-If the generated [`_output_anonsWithRarity.json`](./_output_anonsWithRarity.json) file has not changed, you are sure I did not cheat by manually editing it!
+If the generated [`_output_elementsWithRarity.json`](./_output_elementsWithRarity.json) file has not changed, you are sure I did not cheat by manually editing it!
 
 SHA256 hashes:
 
@@ -46,11 +47,13 @@ c1dca3b87cb0f3d3f2a734c07bdfb821e8acb047346dad524bf24d66345e22fa  _output_rarity
 0b60d8731387099c59c9a87f0491eff3d216ad7035c60cdf7c4680be33d4aa32  _output_results.log
 ```
 
+<!--
 ## Website
 
 A website is available at https://anons.rigwild.dev/
 
 ![website screenshot](./screenshot.png)
+-->
 
 ## License
 

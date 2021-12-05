@@ -2,7 +2,7 @@ import { fs } from 'zx'
 
 // A small script just to extract all traits for each categories
 
-const elements = await fs.readJSON('_input_anons.json')
+const elements = await fs.readJSON('_input_elements.json')
 
 // console.log(elements)
 
