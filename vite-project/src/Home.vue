@@ -1,25 +1,26 @@
-<script setup>
+<script setup lang="ts">
 import { ref, computed, watch, nextTick } from 'vue'
 import { useBreakpoints } from '@vueuse/core'
 import { UseVirtualList } from '@vueuse/components'
 import { useRouteQuery } from '@vueuse/router'
 
-import AnonComponent from '../components/Anon.vue'
+import ElementComponent from '../components/Element.vue'
 
-import anonsFixed from '../../_output_anonsNullTraitsAsNone.json'
+import elementsFixed from '../../_output_elementsNullTraitsAsNone.json'
 import rarity from '../../_output_rarity.json'
+import { categories } from '../../types'
 
-console.log('Use `anons()` to show data')
-window.anons = () => {
-  console.log('This can be found here: https://github.com/rigwild/anons-secret-nft#raw-rarity-scores')
-  console.log('anons', anonsFixed)
+console.log('Use `elements()` to show raw data')
+;(window as any).elements = () => {
+  console.log('This can be found here: https://github.com/rigwild/redacted-club-nft#raw-rarity-scores')
+  console.log('elements', elementsFixed)
   console.log('rarity', rarity)
 }
 
 const breakpoints = useBreakpoints({ laptop: 1024 })
 
-const anonCardSize = () => (breakpoints.isGreater('laptop') ? 500 : 1020)
-
+const elementCardSize = () => (breakpoints.isGreater('laptop') ? 630 : 1350)
+console.log('elementCardSize', elementCardSize())
 const props = defineProps({
   sortBy: String,
   filterTrait: String
@@ -27,7 +28,7 @@ const props = defineProps({
 
 if (props.sortBy !== 'id' && props.sortBy !== 'score') throw new Error('Invalid sort')
 
-let anons = ref(anonsFixed)
+let elements = ref(elementsFixed)
 let filterId = ref()
 let filterTrait = ref('')
 let sortBy = ref(props.sortBy || 'id')
@@ -35,7 +36,7 @@ let sortBy = ref(props.sortBy || 'id')
 const filterTraitQuery = useRouteQuery('filterTrait')
 
 let stateKey = computed(
-  () => `${sortBy.value}-${filterId.value || '_'}-${filterTrait.value || '_'}-${anons.value.length}`
+  () => `${sortBy.value}-${filterId.value || '_'}-${filterTrait.value || '_'}-${elements.value.length}`
 )
 
 // Keep `sortBy` route query prop in sync with state
@@ -46,10 +47,10 @@ watch(
   }
 )
 
-// Auto-apply anon sort on sort type change
+// Auto-apply element sort on sort type change
 watch(
   () => sortBy.value,
-  () => sortAnons()
+  () => sortElement()
 )
 
 // Keep `filterTrait` state in sync with route query prop
@@ -60,64 +61,57 @@ watch(
   }
 )
 
-const filterAnonsById = () => {
+const filterElementsById = () => {
   filterTrait.value = ''
   if (!filterId.value) {
-    anons.value = anonsFixed
-    sortAnons()
+    elements.value = elementsFixed
+    sortElement()
   } else {
-    anons.value = []
-    const results = anonsFixed.find(x => filterId.value === `${x.id}`)
+    elements.value = []
+    const results = elementsFixed.find(x => filterId.value === `${x.id}`)
     nextTick(() => {
-      anons.value = results ? [results] : []
+      elements.value = results ? [results] : []
     })
   }
 }
-const filterAnonsByTrait = () => {
+const filterElementsByTrait = () => {
   filterId.value = ''
   filterTrait.value = filterTrait.value.toLowerCase()
   if (!filterTrait.value) {
-    anons.value = anonsFixed
-    sortAnons()
+    elements.value = elementsFixed
+    sortElement()
   } else {
-    anons.value = anonsFixed.filter(
-      x =>
-        (!!x.backgrounds && x.backgrounds.toLowerCase().includes(filterTrait.value)) ||
-        (!!x.basePerson && x.basePerson.toLowerCase().includes(filterTrait.value)) ||
-        (!!x.head && x.head.toLowerCase().includes(filterTrait.value)) ||
-        (!!x.eyes && x.eyes.toLowerCase().includes(filterTrait.value)) ||
-        (!!x.clothes && x.clothes.toLowerCase().includes(filterTrait.value)) ||
-        (!!x.ears && x.ears.toLowerCase().includes(filterTrait.value)) ||
-        (!!x.mouth && x.mouth.toLowerCase().includes(filterTrait.value))
+    elements.value = elementsFixed.filter(element =>
+      categories.some(category => element[category].toLowerCase().includes(filterTrait.value))
     )
   }
 }
 
-const sortAnons = () => {
+const sortElement = () => {
   if (sortBy.value === 'id') sortById()
   else if (sortBy.value === 'score') sortByScore()
 }
-const sortById = () => (anons.value = anons.value.sort((a, b) => a.id - b.id))
+const sortById = () => (elements.value = elements.value.sort((a, b) => a.id - b.id))
 const sortByScore = () =>
-  (anons.value = anons.value.sort((a, b) => rarity.anons[b.id].score - rarity.anons[a.id].score))
+  (elements.value = elements.value.sort((a, b) => rarity.elements[b.id].score - rarity.elements[a.id].score))
 
 // Apply route query parameters on page load
-sortAnons()
+sortElement()
 filterTrait.value = props.filterTrait
-if (filterTrait.value) filterAnonsByTrait()
+if (filterTrait.value) filterElementsByTrait()
 </script>
 
 <template>
   <div class="filters">
     <div>
       <div>
-        <label for="filterId">Anon ID</label>
+        <label for="filterId">Rabbit ID</label>
         <input
           v-model="filterId"
-          @input="filterAnonsById"
+          @input="filterElementsById"
           id="filterId"
           type="text"
-          placeholder="Filter by Anon ID"
+          placeholder="Filter by Rabbit ID"
           maxlength="3"
         />
       </div>
@@ -125,7 +119,7 @@ if (filterTrait.value) filterAnonsByTrait()
         <label for="filterTrait">Trait Name</label>
         <input
           v-model="filterTrait"
-          @input="filterAnonsByTrait"
+          @input="filterElementsByTrait"
           id="filterTrait"
           type="text"
           placeholder="Filter by Trait Name"
@@ -135,27 +129,16 @@ if (filterTrait.value) filterAnonsByTrait()
   </div>
 
   <div>
-    <h2 class="text-center">{{ anons.length }} / {{ anonsFixed.length }} Anons</h2>
+    <h2 class="text-center">{{ elements.length }} / {{ elementsFixed.length }} Rabbits</h2>
   </div>
-  <div v-if="anons.length === 0">
-    <h2 class="text-center">No anons found!</h2>
+  <div v-if="elements.length === 0">
+    <h2 class="text-center">Nothing found!</h2>
   </div>
 
   <div v-else :key="stateKey">
-    <UseVirtualList :list="anons" :options="{ itemHeight: anonCardSize, overscan: 2 }" height="94vh">
-      <template #="{ data: anon }">
-        <AnonComponent
-          :anon="anon"
-          :totalAnonsCount="anonsFixed.length"
-          :rarityAnon="rarity.anons[anon.id]"
-          :rarityCategoriesBackgroundsCountsAnon="rarity.categories.backgrounds[anon.backgrounds]"
-          :rarityCategoriesBasePersonCountsAnon="rarity.categories.basePerson[anon.basePerson]"
-          :rarityCategoriesHeadCountsAnon="rarity.categories.head[anon.head]"
-          :rarityCategoriesEyesCountsAnon="rarity.categories.eyes[anon.eyes]"
-          :rarityCategoriesClothesCountsAnon="rarity.categories.clothes[anon.clothes]"
-          :rarityCategoriesEarsCountsAnon="rarity.categories.ears[anon.ears]"
-          :rarityCategoriesMouthCountsAnon="rarity.categories.mouth[anon.mouth]"
-        />
+    <UseVirtualList :list="elements" :options="{ itemHeight: elementCardSize, overscan: 2 }" height="94vh">
+      <template #="{ data: element }">
+        <ElementComponent :element="element" />
       </template>
     </UseVirtualList>
   </div>

@@ -1,14 +1,13 @@
 <template>
   <div class="credits">
-    <div><a href="https://github.com/rigwild/anons-secret-nft">Available on GitHub</a></div>
+    <div><a href="https://github.com/rigwild/redacted-club-nft">Available on GitHub</a></div>
     <div>Made with ❤ by <a href="https://github.com/rigwild">rigwild</a></div>
   </div>
 
-  <h1 class="text-center">Anons NFT Rarity Scores</h1>
+  <h1 class="text-center">Redacted Club NFT Rarity Scores</h1>
   <div class="actions">
-    <router-link to="/?sortBy=id"><button>Show Anons by ID</button></router-link>
-    <router-link to="/?sortBy=score"><button>Show Anons by Score</button></router-link>
-    <router-link to="/exhibited"><button>Show Exhibited Anons</button></router-link>
+    <router-link to="/?sortBy=id"><button>Show Rabbits by ID</button></router-link>
+    <router-link to="/?sortBy=score"><button>Show Rabbits by Score</button></router-link>
   </div>
 
   <router-view></router-view>

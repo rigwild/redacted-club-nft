@@ -3,5 +3,5 @@ node_modules
 dist
 dist-ssr
 *.local
-anons-images/source
-anons-images/compressed
+elements-images/source
+elements-images/compressed
