@@ -2,7 +2,7 @@
 
 **Note:** This is a direct fork of https://github.com/rigwild/anons-secret-nft
 
-This repository will list every rarity score for each Anons NFTs from https://redactedclub.com/ on the [Secret Network](https://scrt.network/).
+This repository will list every rarity score for each Redacted Club NFTs from https://redactedclub.com/ on the [Secret Network](https://scrt.network/).
 
 The rarity score is calculed following [these formulas (`Rarity Score: How is it Calculated?` section)](https://raritytools.medium.com/ranking-rarity-understanding-rarity-calculation-methods-86ceaeb9b98c#2942).
 
@@ -33,27 +33,30 @@ SHA256 hashes:
 
 ```
 $ sha256sum _*
-f8d2dafbc207ac3aeae38e0cbad8a1c24badb28c0ca4f1b5078f04ad3e2d26fe  _input_anons.json
-0b189af4d9df843850d5ed364ee86da12c54d5b882afcb8409656f4e72d32c1e  _input_traits_backgrounds.json
-9a224046f5fc39c53ef2b51a103abaa143ff1939a3ade7eda959bf441feb147b  _input_traits_base-persons.json
-7ece8aac7d83948c5372382855b3661439ba14873fdb31ccbb23164aed8b2040  _input_traits_clothes.json
-e83356417c1903fa45db6e5f480eaad926a82d5b34b093f50b62e3e8841ed259  _input_traits_ears.json
-35d7e6e2bd85ff708684e76ff59e7fc9cad797af6326fedc2ded4a153d5590f7  _input_traits_eyes.json
-c80bf523563dfe65b18ec8bc5163104460e98eded12d6b5a4a934a851574ce1c  _input_traits_heads.json
-feea28bb4740f8f3c116741721abd7f9f272db16eb0ee3b21fb62739afca52d6  _input_traits_mouths.json
-52d354e191e61aacda387d1297a85cab3542dbbcb6cc48fd7412e69cb1ff6d78  _output_anonsNullTraitsAsNone.json
-43a0f2d0cf25fa926ae4cb1516a13fa512a4c133e24fafe172afa4a67af6f101  _output_anonsWithRarity.json
-c1dca3b87cb0f3d3f2a734c07bdfb821e8acb047346dad524bf24d66345e22fa  _output_rarity.json
-0b60d8731387099c59c9a87f0491eff3d216ad7035c60cdf7c4680be33d4aa32  _output_results.log
+d7d3d09bc5a97dd765660f1c320a42362079d08c2810d55fda2ae1f7a78b487e  _input_elements.json
+7e9571d17dbccaf716d96594a19b28f23f07175cc4e547b92a2982633d58b905  _input_traits_background.json
+ed05befecb69320353cc7582fb12327f6fef28137a8d5fd7452f470f9753b10f  _input_traits_bar.json
+c0b6cafb410fec3a5e2129d98494bed1cfd858670db6f3e39024b5e75bcd4abd  _input_traits_base.json
+43d1028bf45d20712e10526e22508f3518c01c9e9233c1d4ab302a1e9934b020  _input_traits_ear_acc.json
+0182355f3ca3ebd3a43465fe25ba68b9afa9b946738482f88aabf950edc568a4  _input_traits_ears.json
+69f5dff5e936f09f9ecf9e4d57357b96a04109c0a5c0e56137e12b9b7c730595  _input_traits_eyes.json
+2c26bd9c20edb1bd5c9708fe9f8b54cb53d302b4e6edfd6de5cc82b4bc042fd1  _input_traits_glow.json
+156a84ab11095bcc16335df0e29d54763017d2d31002615e22399ee7692f4d97  _input_traits_hat.json
+41ae0622bbd3d74bf0f889e5edcedbfdf7dd01b1b6e299d5e5a3a407bc06fdc9  _input_traits_mouth_acc.json
+602a8f8639b930ab5fcd273257fd844b0e9558cded8e4e7e982fea91635729cd  _input_traits_mouth.json
+90cdd50cb7c45e8bebfbea62a80955d3264e2f2bc9216be1474b0103826ce984  _input_traits_special.json
+68d4580b57b094387d70fc2845672b3404c88e8b495095072e53e7d7a354d7a5  _input_traits_torso.json
+10d32ec30759d286ee8e5341c132d0bad87c110d7366cdd88aff10e93fda92db  _output_elementsNullTraitsAsNone.json
+b766150122b582a7ebeab6590ff423320f4ebf758fcf83b32ef2e3482226b8dc  _output_elementsWithRarity.json
+91ed6e9963cf0208437910ed9fcc132d2a3efc828d6c91d67ab7c8c5594e631d  _output_rarity.json
+a7e8d6db729202c309e2108bbea24f3fc6c38152d63af2d681fa5c308cbce851  _output_results.log
 ```
 
-<!--
 ## Website
 
-A website is available at https://anons.rigwild.dev/
+A website is available at https://redacted.rigwild.dev/
 
 ![website screenshot](./screenshot.png)
--->
 
 ## License
 

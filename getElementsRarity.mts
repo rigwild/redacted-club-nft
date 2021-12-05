@@ -5,7 +5,7 @@ const getTraits = async (category: string): Promise<string[]> => fs.readJson(`_i
 
 const getElements = async (): Promise<Element[]> => fs.readJson('_input_elements.json')
 
-const pad = (n, l = 3) => (n + '').padStart(l, ' ')
+const pad = (n, l = 4) => (n + '').padStart(l, ' ')
 const percent = (a, b) => (a / b) * 100
 const percentStr = (r, p = 5) => `${pad(r.toFixed(2), p)} %`
 
@@ -153,7 +153,7 @@ Object.entries(rarity.traitsAmountRarity).forEach(([amount, { count, percent }])
 console.log()
 console.log()
 const logElement = (id, score, rank) =>
-  console.log(`  ${pad(id, 3)}: Ranked ${pad(rank, 3)} of ${elements.length} - ` + `score ${pad(score.toFixed(8), 12)}`)
+  console.log(`  ${pad(id, 4)}: Ranked ${pad(rank)} of ${elements.length} - ` + `score ${pad(score.toFixed(8), 12)}`)
 console.log('Elements Rarity Score:')
 Object.entries(rarity.elements).forEach(([id, { score, rank }]) => logElement(id, score, rank))
 
