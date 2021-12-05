@@ -4,6 +4,7 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
+    "extractTraits": "node dist/extractTraits.mjs",
     "getScores": "node dist/getAnonsRarity.mjs",
     "exportScores": "node dist/getAnonsRarity.mjs --quiet --out > _output_results.log",
     "getScoresJson": "node dist/getAnonsRarity.mjs --quiet --json",

@@ -1,43 +1,29 @@
-import { fetch, argv, fs } from 'zx'
+import { argv, fs } from 'zx'
 import type { Anon, AnonWithRarity, AnonsRarity, CategoryRarity, TraitRarity } from './types'
 
-const loadOrFetchThenCache = async (file: string, loadFn: () => Promise<any>) => {
-  if (await fs.pathExists(file)) return fs.readJson(file)
-  else {
-    const res = await loadFn()
-    await fs.writeJSON(file, res, { spaces: 2 })
-    return res
-  }
-}
+const getTraits = async (category: string): Promise<string[]> => fs.readJson(`_input_traits_${category}.json`)
 
-const getTraits = async (category: string): Promise<string[]> =>
-  loadOrFetchThenCache(`_input_traits_${category}.json`, () =>
-    fetch(`https://api.anons.army/api/anons/${category}`)
-      .then(res => res.json())
-      .then(res => res.sort())
-  )
-
-const getAnons = async (): Promise<Anon[]> => {
-  const res = await loadOrFetchThenCache('_input_anons.json', () =>
-    fetch('https://api.anons.army/api/anons?size=580').then(res => res.json())
-  )
-  return res.content
-}
+const getAnons = async (): Promise<Anon[]> => fs.readJson('_input_anons.json')
 
 const pad = (n, l = 3) => (n + '').padStart(l, ' ')
 const percent = (a, b) => (a / b) * 100
 const percentStr = (r, p = 5) => `${pad(r.toFixed(2), p)} %`
 
-const [backgrounds, basePerson, head, eyes, clothes, ears, mouth] = await Promise.all([
-  getTraits('backgrounds'),
-  getTraits('base-persons'),
-  getTraits('heads'),
-  getTraits('eyes'),
-  getTraits('clothes'),
+const [background, glow, special, ears, base, torso, eyes, mouth, mouth_acc, ear_acc, hat, bar] = await Promise.all([
+  getTraits('background'),
+  getTraits('glow'),
+  getTraits('special'),
   getTraits('ears'),
-  getTraits('mouths')
+  getTraits('base'),
+  getTraits('torso'),
+  getTraits('eyes'),
+  getTraits('mouth'),
+  getTraits('mouth_acc'),
+  getTraits('ear_acc'),
+  getTraits('hat'),
+  getTraits('bar')
 ])
-const traits = { backgrounds, basePerson, head, eyes, clothes, ears, mouth }
+const traits = { background, glow, special, ears, base, torso, eyes, mouth, mouth_acc, ear_acc, hat, bar }
 const traitsCategories = Object.keys(traits)
 
 const anons = await getAnons()
@@ -46,11 +32,11 @@ const anons = await getAnons()
 // Replace anons null traits with "None"
 anons.forEach(anon =>
   traitsCategories.forEach(category => {
-    if (anon[category] === null) anon[category] = 'None'
+    if (anon[category] === null) anon[category] = 'none'
   })
 )
 // Add "None" traits to categories
-traitsCategories.forEach(category => traits[category].push('None'))
+traitsCategories.forEach(category => traits[category].push('none'))
 
 const rarity: AnonsRarity = {} as any
 
@@ -92,7 +78,7 @@ rarity.anons = Object.fromEntries(
 
 // Traits count rarity (bonus, not counted in scores)
 const countTraits = (anon: Anon) => {
-  return traitsCategories.reduce((acc, category) => (!!anon[category] && anon[category] !== 'None' ? ++acc : acc), 0)
+  return traitsCategories.reduce((acc, category) => (!!anon[category] && anon[category] !== 'none' ? ++acc : acc), 0)
 }
 rarity.traitsAmountRarity = anons.reduce((acc, anon) => {
   const count = countTraits(anon)
@@ -111,13 +97,18 @@ const anonsWithRarity: AnonWithRarity[] = anons.map(anon => {
   res.rarity = {
     ...rarity.anons[anon.id],
     traits: {
-      backgrounds: { ...rarity.categories.backgrounds[anon.backgrounds], name: anon.backgrounds },
-      basePerson: { ...rarity.categories.basePerson[anon.basePerson], name: anon.basePerson },
-      head: { ...rarity.categories.head[anon.head], name: anon.head },
-      eyes: { ...rarity.categories.eyes[anon.eyes], name: anon.eyes },
-      clothes: { ...rarity.categories.clothes[anon.clothes], name: anon.clothes },
+      background: { ...rarity.categories.background[anon.background], name: anon.background },
+      glow: { ...rarity.categories.glow[anon.glow], name: anon.glow },
+      special: { ...rarity.categories.special[anon.special], name: anon.special },
       ears: { ...rarity.categories.ears[anon.ears], name: anon.ears },
-      mouth: { ...rarity.categories.mouth[anon.mouth], name: anon.mouth }
+      base: { ...rarity.categories.base[anon.base], name: anon.base },
+      torso: { ...rarity.categories.torso[anon.torso], name: anon.torso },
+      eyes: { ...rarity.categories.eyes[anon.eyes], name: anon.eyes },
+      mouth: { ...rarity.categories.mouth[anon.mouth], name: anon.mouth },
+      mouth_acc: { ...rarity.categories.mouth_acc[anon.mouth_acc], name: anon.mouth_acc },
+      ear_acc: { ...rarity.categories.ear_acc[anon.ear_acc], name: anon.ear_acc },
+      hat: { ...rarity.categories.hat[anon.hat], name: anon.hat },
+      bar: { ...rarity.categories.bar[anon.bar], name: anon.bar }
     }
   }
   return res

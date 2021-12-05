@@ -1,15 +1,21 @@
 export type Anon = {
   id: number
-  backgrounds: string
-  basePerson: string
-  head: string
-  eyes: string
-  clothes: string
-  ears: string
-  mouth: string
   specialNote?: string
   imageUrl: string
   revealed: boolean
+
+  background: string
+  glow: string
+  special: string
+  ears: string
+  base: string
+  torso: string
+  eyes: string
+  mouth: string
+  mouth_acc: string
+  ear_acc: string
+  hat: string
+  bar: string
 }
 
 export type TraitRarity = { count: number; totalPercent: number; score: number }
@@ -25,13 +31,18 @@ export type AnonTraitInfo = TraitRarity & { name: string }
 export type AnonWithRarity = Anon & {
   rarity: AnonRarity & {
     traits: {
-      backgrounds: AnonTraitInfo
-      basePerson: AnonTraitInfo
-      head: AnonTraitInfo
-      eyes: AnonTraitInfo
-      clothes: AnonTraitInfo
+      background: AnonTraitInfo
+      glow: AnonTraitInfo
+      special: AnonTraitInfo
       ears: AnonTraitInfo
+      base: AnonTraitInfo
+      torso: AnonTraitInfo
+      eyes: AnonTraitInfo
       mouth: AnonTraitInfo
+      mouth_acc: AnonTraitInfo
+      ear_acc: AnonTraitInfo
+      hat: AnonTraitInfo
+      bar: AnonTraitInfo
     }
   }
 }
