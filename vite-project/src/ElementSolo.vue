@@ -5,7 +5,8 @@ import elementsFixed from '../../_output_elementsNullTraitsAsNone.json'
 const props = defineProps({ elementId: String })
 
 const elementId = +props.elementId
-const isValidElementId = !Number.isNaN(elementId) && elementId >= 1 && elementId <= 580
+const isValidElementId =
+  !Number.isNaN(elementId) && elementId >= 0 && elementId <= elementsFixed.length.toString().length
 const element = isValidElementId && elementsFixed.filter(x => x.id === elementId)[0]
 </script>
 

@@ -112,7 +112,7 @@ if (filterTrait.value) filterElementsByTrait()
           id="filterId"
           type="text"
           placeholder="Filter by Rabbit ID"
-          maxlength="3"
+          :maxlength="elementsFixed.length.toString().length"
         />
       </div>
       <div>
